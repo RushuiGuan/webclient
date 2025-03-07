@@ -1,10 +1,5 @@
-using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Albatross.WebClient;
-using System.Collections.Generic;
-using Albatross.Serialization;
+using Albatross.Serialization.Json;
 
 namespace Albatross.WebClient.Test {
 	public partial class SecuredProxyService : Albatross.WebClient.ClientBase {

@@ -1,4 +1,4 @@
-﻿using Albatross.Serialization;
+﻿using Albatross.Serialization.Json;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;

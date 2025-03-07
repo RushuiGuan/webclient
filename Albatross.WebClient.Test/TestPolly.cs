@@ -1,4 +1,4 @@
-﻿using Albatross.Serialization;
+﻿using Albatross.Serialization.Json;
 using Albatross.Testing.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

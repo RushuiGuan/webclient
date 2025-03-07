@@ -1,6 +1,4 @@
-using Albatross.Dates;
-using Albatross.Serialization;
-using FluentAssertions;
+using Albatross.Serialization.Json;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
