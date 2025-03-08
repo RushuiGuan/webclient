@@ -1,9 +1,8 @@
 using System.Net.Http;
-using Albatross.Serialization.Json;
 
 namespace Albatross.WebClient.Test {
 	public partial class ValueProxyService : Albatross.WebClient.ClientBase {
-		public ValueProxyService(Microsoft.Extensions.Logging.ILogger<ValueProxyService> @logger, System.Net.Http.HttpClient @client, IJsonSettings serializationOption) : base(@logger, @client, serializationOption) {
+		public ValueProxyService(Microsoft.Extensions.Logging.ILogger<ValueProxyService> @logger, System.Net.Http.HttpClient @client) : base(@logger, @client) {
 		}
 		public const System.String ControllerPath = "/api/value";
 		public async System.Threading.Tasks.Task<PayLoad> GetJson() {

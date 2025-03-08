@@ -1,5 +1,4 @@
-﻿using Albatross.Serialization.Json;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using System;
@@ -19,11 +18,10 @@ namespace Albatross.WebClient {
 		protected ILogger logger;
 		private TextWriter? writer;
 
-		public ClientBase(ILogger logger, HttpClient client) : this(logger, client, DefaultJsonSettings.Value) { }
-
-		public ClientBase(ILogger logger, HttpClient client, IJsonSettings serializationOption) {
+		public ClientBase(ILogger logger, HttpClient client) : this(logger, client, My.DefaultJsonSerializationOptions.Value) { }
+		public ClientBase(ILogger logger, HttpClient client, JsonSerializerOptions serializationOptions) {
 			this.client = client;
-			this.defaultSerializationOptions = serializationOption.Default;
+			this.defaultSerializationOptions = serializationOptions;
 			this.logger = logger;
 		}
 
@@ -180,7 +178,7 @@ namespace Albatross.WebClient {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (t != null) {
 				string content = SerializeJson<T>(t);
-				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
+				request.Content = new StringContent(content, Encoding.UTF8, My.ContentTypes.Json);
 				writer?.WriteLine(content);
 			}
 			return request;
@@ -188,7 +186,7 @@ namespace Albatross.WebClient {
 		protected HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (content != null) {
-				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
+				request.Content = new StringContent(content, Encoding.UTF8, My.ContentTypes.Text);
 				writer?.WriteLine(content);
 			}
 			return request;

@@ -1,17 +1,17 @@
-﻿using Albatross.Serialization.Json;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Albatross.WebClient.Test {
 	public class MyProxyService : WebClient.ClientBase {
-		public MyProxyService(ILogger logger, HttpClient client, IJsonSettings serializationOption) : base(logger, client, serializationOption) {
+		public MyProxyService(ILogger logger, HttpClient client) : base(logger, client) {
 		}
 		public async Task<string> RunMe() {
 			using var request = CreateRequest(HttpMethod.Get, string.Empty, new NameValueCollection());
@@ -27,7 +27,7 @@ namespace Albatross.WebClient.Test {
 			}
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
@@ -48,7 +48,7 @@ namespace Albatross.WebClient.Test {
 			}
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost/mmmyyy-data");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/w9-bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
@@ -72,7 +72,7 @@ namespace Albatross.WebClient.Test {
 		public void TestRequestGeneration3(int maxlength, int count, params string[] expected) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", "2022-10-10");
@@ -97,7 +97,7 @@ namespace Albatross.WebClient.Test {
 		public void TestInsufficientMaxLength(int maxlength, int count) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection {
 				{ "date", "2022-10-10" }
@@ -128,7 +128,7 @@ http://myyyhost/api/bar?date=2022-10-10&id=0
 		public void TestDelimitedRequestGeneration(int maxlength, int count, string delimiter, params string[] expected) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection {
 				{ "date", "2022-10-10" }
@@ -154,7 +154,7 @@ http://myyyhost/api/bar?date=2022-10-10&id=0
 		public void TestInsufficientMaxLengthWithDelimiter(int maxlength, int count, string delimiter) {
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://myyyhost");
-			var proxy = new MyProxyService(new Mock<ILogger>().Object, client, new DefaultJsonSettings());
+			var proxy = new MyProxyService(new Mock<ILogger>().Object, client);
 			string path = $"api/bar";
 			var queryString = new NameValueCollection();
 			queryString.Add("date", "2022-10-10");
