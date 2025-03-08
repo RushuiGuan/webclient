@@ -178,7 +178,7 @@ namespace Albatross.WebClient {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (t != null) {
 				string content = SerializeJson<T>(t);
-				request.Content = new StringContent(content, Encoding.UTF8, My.ContentTypes.Json);
+				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Json);
 				writer?.WriteLine(content);
 			}
 			return request;
@@ -186,7 +186,7 @@ namespace Albatross.WebClient {
 		protected HttpRequestMessage CreateStringRequest(HttpMethod method, string relativeUrl, NameValueCollection queryStringValues, string? content) {
 			var request = CreateRequest(method, relativeUrl, queryStringValues);
 			if (content != null) {
-				request.Content = new StringContent(content, Encoding.UTF8, My.ContentTypes.Text);
+				request.Content = new StringContent(content, Encoding.UTF8, ContentTypes.Text);
 				writer?.WriteLine(content);
 			}
 			return request;
