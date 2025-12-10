@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Albatross.WebClient.Test {
 	public class MyConfig : ConfigBase {
-		public MyConfig(IConfiguration configuration) : base(configuration) {
+		public MyConfig(IConfiguration configuration) : base(configuration, null) {
 			this.TestUrl = configuration.GetRequiredEndPoint("test");
 			this.Test1Url = configuration.GetRequiredEndPoint("test1");
 			this.ProjectTemplateUrl = configuration.GetRequiredEndPoint("mytemplate");
